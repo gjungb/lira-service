@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'lira-service';
+
+  handleTitle(ev: string): void {
+    console.log(ev);
+  }
 }
