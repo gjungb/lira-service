@@ -1,0 +1,20 @@
+<p>book-detail works!</p>
+
+<article *ngIf="book | async as book">  
+    <!-- Reactive -->
+    <form [formGroup]="form">
+        <input formControlName="control">
+    </form>
+
+    <!-- Template driven -->
+    <form #myForm="ngForm" (ngSubmit)="updateValues(myForm.value)">
+        <input type="text" [(ngModel)]="title" name="title" required minlength="3" #myInput="ngModel">
+        <p *ngIf="myInput.hasError('required')">
+            Bitte ausfüllen!
+        </p>
+        <button [disabled]="myForm.invalid" type="submit">
+            Absenden
+        </button>
+    </form>
+    <pre><code>{{ myInput.errors | json }}</code></pre>
+</article>

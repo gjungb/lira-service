@@ -11,6 +11,10 @@ export interface Book {
      */
     subtitle: string;
     /**
+     * Die eindeutige ISBN
+     */
+    isbn: string;
+    /**
      * Die Anzahl an Seiten
      */
     numPages?: number;

@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'lira-service';
 
+  visible = true;
+
   handleTitle(ev: string): void {
     console.log(ev);
   }

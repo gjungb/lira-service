@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../model/book';
+import { Observable, of } from 'rxjs';
+import { tap, mapTo } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookDataService {
+  private readonly BASE_URL = 'http://localhost:4730';
 
-  constructor() { }
+  constructor(private readonly client: HttpClient) {}
 
-  readBooks(): Book[] {
-    return [
-      {
-        title: 'Design Patterns',
-        subtitle: 'Elements of Reusable Object-Oriented Software',
-      },
-      {
-        title: 'REST und HTTP',
-        subtitle: 'Entwicklung und Integration nach dem Architekturstil des Web',
-      },
-      {
-        title: 'Eloquent JavaScript',
-        subtitle: 'A Modern Introduction to Programming',
-      },
-    ];
+  getBookByIsbn(isbn: string): Promise<Book> {
+    const url = `${this.BASE_URL}/books/${isbn}`;
+    return this.client.get<Book>(url).toPromise();
+  }
+
+  readBooks(): Observable<Book[]> {
+    return this.client
+      .get<Book[]>(`${this.BASE_URL}/books`)
+      .pipe(tap((response) => console.log(response)));
   }
 }
